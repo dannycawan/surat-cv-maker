@@ -64,20 +64,23 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Removed inaccessible old EAS project ID `1517bf4f-b8f6-4eb8-b4af-a9b5f2a62b1f`.
 - Ran `eas init --force --non-interactive` to create/link `@dannycawan/Surat-CV-Maker`.
 - Started EAS Android production build `0c4d94c2-6d16-4102-bab0-3011419e98e6`.
+- Production AAB build `0c4d94c2-6d16-4102-bab0-3011419e98e6` finished with artifact `https://expo.dev/artifacts/eas/2w7GCuxZ1WvbRb6vbX7ngL.aab`.
+- Started EAS Android preview APK build `58ecfa59-4399-4e17-b385-202035e34eb7`.
 
 ## In Progress
 
-- Production EAS AAB build has been started and is currently in progress.
+- Production EAS AAB build finished successfully; preview APK build is currently in progress.
 - UI and ad placement audit is intentionally deferred until after stable native build validation.
 
 ## Next Exact Steps
 
-1. Check EAS build `0c4d94c2-6d16-4102-bab0-3011419e98e6` until it finishes.
-2. Download the generated AAB if the build succeeds and inspect native libraries for 16 KB page-size compliance in Android Studio/APK Analyzer.
-3. If the build fails, inspect EAS logs and fix the first concrete failure.
-4. Manually smoke test document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
-5. After stable build validation, audit UI/ad placement UX.
-6. Optionally configure GitHub branch protection and release workflow.
+1. Check EAS preview APK build `58ecfa59-4399-4e17-b385-202035e34eb7` until it finishes.
+2. Download production AAB build `0c4d94c2-6d16-4102-bab0-3011419e98e6` from `https://expo.dev/artifacts/eas/2w7GCuxZ1WvbRb6vbX7ngL.aab`.
+3. Determine the EAS-generated Android upload key certificate and request/reset upload-key access in Google Play Console if the old upload keystore is unavailable.
+4. Inspect the production AAB native libraries for 16 KB page-size compatibility in Android Studio/APK Analyzer.
+5. Manually smoke test APK install, document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
+6. After stable build validation, audit UI/ad placement UX.
+7. Optionally configure GitHub branch protection and release workflow.
 
 ## Files Already Read
 
@@ -151,7 +154,8 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Expo config initially failed because older Google Mobile Ads plugin required direct `@expo/config-plugins`; upgrading the ads package resolved this and the temporary dependency was removed.
 - Initial `git remote add` needed elevated filesystem access for `.git/config`.
 - Old EAS project ID was inaccessible to `dannycawan`; fixed by re-linking to a new EAS project under the current owner.
-- EAS build command timed out locally after submission, but `eas build:list` confirmed build `0c4d94c2-6d16-4102-bab0-3011419e98e6` is `IN_PROGRESS`.
+- Production EAS build command timed out locally after submission, but `eas build:list` later confirmed build `0c4d94c2-6d16-4102-bab0-3011419e98e6` finished successfully.
+- Preview APK build command timed out locally after submission, but `eas build:list` confirmed build `58ecfa59-4399-4e17-b385-202035e34eb7` is `IN_PROGRESS`.
 
 ## Validation Status
 
@@ -162,9 +166,10 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - `npx eas-cli@latest whoami`: confirmed `dannycawan`.
 - `npx eas-cli@latest init --force --non-interactive`: created/linked project ID `4bd57e0b-1211-465e-ab62-96a023b9b036`.
 - `npx eas-cli@latest build --platform android --profile production --non-interactive`: submitted build, local command timed out while waiting.
-- `npx eas-cli@latest build:list --platform android --limit 3 --json`: confirmed Android production build `0c4d94c2-6d16-4102-bab0-3011419e98e6` is `IN_PROGRESS`.
+- `npx eas-cli@latest build:list --platform android --limit 5 --json`: confirmed production AAB build `0c4d94c2-6d16-4102-bab0-3011419e98e6` is `FINISHED` and preview APK build `58ecfa59-4399-4e17-b385-202035e34eb7` is `IN_PROGRESS`.
 - `npx expo export --platform android`: passing; generated `dist`.
-- EAS Android production AAB build in progress.
+- EAS Android production AAB build finished.
+- EAS Android preview APK build in progress.
 - 16 KB page-size binary inspection not run.
 
 ## Do Not Repeat
@@ -178,4 +183,4 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 
 ## Resume Note for Next Agent
 
-Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally and is pushed to GitHub `main`. EAS Android production build `0c4d94c2-6d16-4102-bab0-3011419e98e6` was submitted under `dannycawan` and was last seen `IN_PROGRESS`; check its final result before starting another production build.
+Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally and is pushed to GitHub `main`. EAS Android production AAB build `0c4d94c2-6d16-4102-bab0-3011419e98e6` finished successfully; preview APK build `58ecfa59-4399-4e17-b385-202035e34eb7` was last seen `IN_PROGRESS`. Next focus is Play upload-key recovery/reset, APK testing, and 16 KB page-size verification.
