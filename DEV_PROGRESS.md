@@ -63,19 +63,21 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Removed placeholder `ANDROID_NDK_HOME` from EAS preview build config.
 - Removed inaccessible old EAS project ID `1517bf4f-b8f6-4eb8-b4af-a9b5f2a62b1f`.
 - Ran `eas init --force --non-interactive` to create/link `@dannycawan/Surat-CV-Maker`.
+- Started EAS Android production build `0c4d94c2-6d16-4102-bab0-3011419e98e6`.
 
 ## In Progress
 
-- Production EAS AAB build has not been run yet because it requires Expo/EAS account access and signing credentials.
+- Production EAS AAB build has been started and is currently in progress.
 - UI and ad placement audit is intentionally deferred until after stable native build validation.
 
 ## Next Exact Steps
 
-1. Run `eas build --platform android --profile production` after owner logs in to Expo/EAS.
-2. Download the generated AAB and inspect native libraries for 16 KB page-size compliance in Android Studio/APK Analyzer.
-3. Manually smoke test document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
-4. After stable build validation, audit UI/ad placement UX.
-5. Optionally configure GitHub branch protection and release workflow.
+1. Check EAS build `0c4d94c2-6d16-4102-bab0-3011419e98e6` until it finishes.
+2. Download the generated AAB if the build succeeds and inspect native libraries for 16 KB page-size compliance in Android Studio/APK Analyzer.
+3. If the build fails, inspect EAS logs and fix the first concrete failure.
+4. Manually smoke test document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
+5. After stable build validation, audit UI/ad placement UX.
+6. Optionally configure GitHub branch protection and release workflow.
 
 ## Files Already Read
 
@@ -149,7 +151,7 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Expo config initially failed because older Google Mobile Ads plugin required direct `@expo/config-plugins`; upgrading the ads package resolved this and the temporary dependency was removed.
 - Initial `git remote add` needed elevated filesystem access for `.git/config`.
 - Old EAS project ID was inaccessible to `dannycawan`; fixed by re-linking to a new EAS project under the current owner.
-- EAS build not run yet after re-linking; Android signing credential state still unknown.
+- EAS build command timed out locally after submission, but `eas build:list` confirmed build `0c4d94c2-6d16-4102-bab0-3011419e98e6` is `IN_PROGRESS`.
 
 ## Validation Status
 
@@ -159,8 +161,10 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - `npx expo config --json --full`: passing.
 - `npx eas-cli@latest whoami`: confirmed `dannycawan`.
 - `npx eas-cli@latest init --force --non-interactive`: created/linked project ID `4bd57e0b-1211-465e-ab62-96a023b9b036`.
+- `npx eas-cli@latest build --platform android --profile production --non-interactive`: submitted build, local command timed out while waiting.
+- `npx eas-cli@latest build:list --platform android --limit 3 --json`: confirmed Android production build `0c4d94c2-6d16-4102-bab0-3011419e98e6` is `IN_PROGRESS`.
 - `npx expo export --platform android`: passing; generated `dist`.
-- EAS Android production AAB build not run.
+- EAS Android production AAB build in progress.
 - 16 KB page-size binary inspection not run.
 
 ## Do Not Repeat
@@ -174,4 +178,4 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 
 ## Resume Note for Next Agent
 
-Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally and is pushed to GitHub `main`, but no native EAS build has been produced yet. The next safest move is owner Expo/EAS login, production AAB generation, and 16 KB page-size verification.
+Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally and is pushed to GitHub `main`. EAS Android production build `0c4d94c2-6d16-4102-bab0-3011419e98e6` was submitted under `dannycawan` and was last seen `IN_PROGRESS`; check its final result before starting another production build.
