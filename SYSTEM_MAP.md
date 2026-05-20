@@ -15,7 +15,8 @@ Side Effects: Documentation only; no runtime side effects.
 - App version in Expo config: `1.1.1`
 - Android package: `com.arielfikrua.SuratCVMaker`
 - iOS bundle identifier: `com.arielfikrua.SuratCVMaker`
-- EAS project ID: `1517bf4f-b8f6-4eb8-b4af-a9b5f2a62b1f`
+- Expo owner: `dannycawan`
+- EAS project ID: `4bd57e0b-1211-465e-ab62-96a023b9b036`
 - Monetization SDK: `react-native-google-mobile-ads`
 - AdMob app ID: `ca-app-pub-6721734106426198~4233683077`
 
@@ -176,6 +177,7 @@ Service/Data:
 - Some large screen files exceed 500 lines; inspect relevant functions only when modifying.
 - Ads are production-configured; preserve monetization IDs unless owner explicitly requests changes.
 - Android API 36 configuration validates locally, but a real EAS Android AAB must still be built and inspected for 16 KB page-size compliance.
+- Previous inaccessible EAS project ID was `1517bf4f-b8f6-4eb8-b4af-a9b5f2a62b1f`; the app is now re-linked under the `dannycawan` Expo account.
 
 ## Maintenance Rules For Future Sessions
 

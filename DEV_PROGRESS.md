@@ -30,6 +30,8 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - `useLegacyPackaging` is set to `false` for native library packaging.
 - EAS production build targets Android app bundle.
 - Google Mobile Ads is configured in `app.json` and `src/utils/adMobService.tsx`.
+- Expo account confirmed by `eas whoami`: `dannycawan` / `setyaawan3@gmail.com`.
+- EAS project re-linked under `dannycawan` with project ID `4bd57e0b-1211-465e-ab62-96a023b9b036`.
 - Local Git repository initialized.
 - GitHub remote configured: `https://github.com/dannycawan/surat-cv-maker.git`
 - Local branch renamed from `master` to `main`.
@@ -59,6 +61,8 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Removed direct local `eas-cli` and `@expo/metro-config` dependencies.
 - Fixed SDK 54 TypeScript issues in BackHandler cleanup and FileSystem legacy API usage.
 - Removed placeholder `ANDROID_NDK_HOME` from EAS preview build config.
+- Removed inaccessible old EAS project ID `1517bf4f-b8f6-4eb8-b4af-a9b5f2a62b1f`.
+- Ran `eas init --force --non-interactive` to create/link `@dannycawan/Surat-CV-Maker`.
 
 ## In Progress
 
@@ -144,7 +148,8 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Initial SDK 54 install stopped on stale React 18 typings conflict; fixed by aligning `@types/react`.
 - Expo config initially failed because older Google Mobile Ads plugin required direct `@expo/config-plugins`; upgrading the ads package resolved this and the temporary dependency was removed.
 - Initial `git remote add` needed elevated filesystem access for `.git/config`.
-- EAS build not run locally; requires owner Expo/EAS access and credentials.
+- Old EAS project ID was inaccessible to `dannycawan`; fixed by re-linking to a new EAS project under the current owner.
+- EAS build not run yet after re-linking; Android signing credential state still unknown.
 
 ## Validation Status
 
@@ -152,6 +157,8 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - `npx expo-doctor`: 17/17 checks passing.
 - `npx tsc --noEmit`: passing.
 - `npx expo config --json --full`: passing.
+- `npx eas-cli@latest whoami`: confirmed `dannycawan`.
+- `npx eas-cli@latest init --force --non-interactive`: created/linked project ID `4bd57e0b-1211-465e-ab62-96a023b9b036`.
 - `npx expo export --platform android`: passing; generated `dist`.
 - EAS Android production AAB build not run.
 - 16 KB page-size binary inspection not run.

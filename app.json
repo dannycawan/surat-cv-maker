@@ -42,7 +42,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "1517bf4f-b8f6-4eb8-b4af-a9b5f2a62b1f"
+        "projectId": "4bd57e0b-1211-465e-ab62-96a023b9b036"
       }
     },
     "plugins": [
@@ -64,6 +64,7 @@
           "iosAppId": "ca-app-pub-6721734106426198~4233683077"
         }
       ]
-    ]
+    ],
+    "owner": "dannycawan"
   }
 }
