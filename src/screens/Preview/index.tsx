@@ -1,4 +1,11 @@
-// src/screens/Preview/index.tsx
+/*
+Purpose: Document preview and export screen for generated letters and CVs.
+Caller: Root stack route Preview from src/navigation/index.tsx.
+Dependencies: React Navigation, React Native Paper, WebView, export utilities, generated HTML templates, AdMob service.
+Main Functions: PreviewScreen component, export/share handlers, preview rendering, Android back handling for overlay state.
+Side Effects: Generates/shares files, shows snackbars/ads, intercepts Android hardware back when menus are open.
+*/
+
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   View, 
@@ -146,8 +153,8 @@ const PreviewScreen: React.FC<PreviewScreenProps> = ({ route }) => {
         return false;
       };
 
-      BackHandler.addEventListener('hardwareBackPress', onBackPress);
-      return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+      const backSubscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      return () => backSubscription.remove();
     }, [fabOpen, menuVisible])
   );
   

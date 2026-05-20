@@ -23,11 +23,14 @@ Do not change package/application identity without explicit owner approval.
 
 ## Current Technical Baseline
 
-- Expo SDK: `~52.0.46`
-- React Native: `0.76.9`
-- React: `18.2.0`
+- Expo SDK: `~54.0.34`
+- React Native: `0.81.5`
+- React: `19.1.0`
 - TypeScript: `strict` enabled through `expo/tsconfig.base`
 - New Architecture: enabled by `app.json` via `newArchEnabled: true`
+- Android compile SDK: `36` through `expo-build-properties`
+- Android target SDK: `36` through `expo-build-properties`
+- Native library legacy packaging: disabled through `expo-build-properties` for better 16 KB page-size alignment compatibility
 - EAS production Android build: app bundle via `:app:bundleRelease`
 - EAS preview Android build: APK via `:app:assembleRelease`
 
@@ -35,9 +38,10 @@ Do not change package/application identity without explicit owner approval.
 
 - Current app root: `D:\github\Surat-CV-Maker`
 - Root currently contains app source, config, `node_modules`, and `package-lock.json`.
-- `git status` failed because the app root is not currently a Git repository.
-- Nested `Surat-CV-Maker` folder also does not contain `.git`.
-- Recovery priority: initialize or reconnect Git before risky upgrades or broad edits.
+- Local Git repository initialized in the app root.
+- Baseline commit: `bed0e59` (`chore: baseline recovered app state`).
+- Nested `Surat-CV-Maker` folder is preserved as recovered source evidence but excluded from root TypeScript validation.
+- No Git remote has been configured yet.
 
 ## Entry Flow
 
@@ -134,7 +138,7 @@ Service/Data:
 - `src/utils/exportUtils.ts`
   - Generates HTML by document type.
   - Exports PDF using `expo-print`.
-  - Writes/shares files using `expo-file-system` and `expo-sharing`.
+  - Writes/shares files using the `expo-file-system/legacy` API and `expo-sharing`.
   - `exportToDocx` currently writes HTML content with `.docx` extension.
 
 - `src/utils/adMobService.tsx`
@@ -157,18 +161,19 @@ Service/Data:
 
 ## Build And Compatibility Notes
 
-- `app.json` still declares `WRITE_EXTERNAL_STORAGE` and `READ_EXTERNAL_STORAGE`; these are legacy Android permissions and should be audited during Android API 36 modernization.
-- `expo-build-properties` is installed but not currently configured in `app.json` plugins.
+- `app.json` still declares `WRITE_EXTERNAL_STORAGE` and `READ_EXTERNAL_STORAGE`; these legacy Android permissions remain for behavior preservation and should be manually reviewed before production upload.
+- `expo-build-properties` configures Android compile/target SDK 36, build tools `36.0.0`, and `useLegacyPackaging: false`.
+- Expo SDK 54 / React Native 0.81 targets Android 16 / API 36.
 - Production AAB build depends on EAS credentials and remote app version source.
 - Do not publish or submit automatically.
 
 ## Known Risks / Recovery Gaps
 
-- No Git repository is currently initialized in the app root.
-- `SYSTEM_MAP.md` and `DEV_PROGRESS.md` were missing before this recovery pass.
+- No Git remote is currently configured.
+- `SYSTEM_MAP.md` and `DEV_PROGRESS.md` were missing before recovery.
 - Some large screen files exceed 500 lines; inspect relevant functions only when modifying.
 - Ads are production-configured; preserve monetization IDs unless owner explicitly requests changes.
-- Android API 36 and 16 KB page size compatibility still need formal dependency/build audit.
+- Android API 36 configuration validates locally, but a real EAS Android AAB must still be built and inspected for 16 KB page-size compliance.
 
 ## Maintenance Rules For Future Sessions
 

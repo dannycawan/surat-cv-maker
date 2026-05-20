@@ -10,11 +10,11 @@ Side Effects: Documentation only; no runtime side effects.
 
 ## Active Task
 
-Initial recovery documentation and repository continuity setup for the existing production Expo React Native app.
+Expo SDK 54 migration, Android API 36 preparation, and production recovery hardening for the existing Expo React Native app.
 
 ## Current Status
 
-`SYSTEM_MAP.md` and `DEV_PROGRESS.md` were missing and have now been created. The app root contains an Expo SDK 52 production app, but Git is not currently initialized in the root or nested app folder.
+The app root is now protected by a Git baseline commit and has been migrated from Expo SDK 52 to Expo SDK 54. Expo Doctor, Expo package validation, TypeScript, Expo config resolution, and Android JS bundle export are passing locally.
 
 ## What Has Been Confirmed
 
@@ -22,13 +22,18 @@ Initial recovery documentation and repository continuity setup for the existing 
 - Expo app name and slug: `Surat-CV-Maker`
 - Android package: `com.arielfikrua.SuratCVMaker`
 - iOS bundle identifier: `com.arielfikrua.SuratCVMaker`
-- Expo SDK: `~52.0.46`
-- React Native: `0.76.9`
+- Expo SDK: `~54.0.34`
+- React Native: `0.81.5`
+- React: `19.1.0`
 - New Architecture is enabled in `app.json`.
+- Android compile/target SDK 36 is configured through `expo-build-properties`.
+- `useLegacyPackaging` is set to `false` for native library packaging.
 - EAS production build targets Android app bundle.
 - Google Mobile Ads is configured in `app.json` and `src/utils/adMobService.tsx`.
-- `git status` fails because this app root is not a Git repository.
-- Nested `Surat-CV-Maker` folder exists but also has no `.git`.
+- Local Git repository initialized.
+- Baseline commit created: `bed0e59` (`chore: baseline recovered app state`).
+- Migration commit created: `chore: migrate to expo sdk 54` on current `master` HEAD.
+- Nested `Surat-CV-Maker` folder exists and is preserved, but root `tsconfig.json` excludes it from validation.
 
 ## Work Completed
 
@@ -39,19 +44,30 @@ Initial recovery documentation and repository continuity setup for the existing 
 - Traced core service modules for storage, export, ads, and templates.
 - Created `SYSTEM_MAP.md`.
 - Created `DEV_PROGRESS.md`.
+- Initialized local Git repository.
+- Created safe baseline commit before migration.
+- Audited package/config state with `npm outdated`, `npx expo install --check`, `npx expo-doctor`, `npm ls`, and Expo config resolution.
+- Upgraded Expo SDK from 52 to 54.
+- Upgraded React Native to `0.81.5` and React to `19.1.0`.
+- Installed SDK 54 required dependencies including `@expo/vector-icons`, `expo-font`, and `react-native-worklets`.
+- Updated Google Mobile Ads package from `14.7.0` to `^16.3.3` while preserving AdMob IDs.
+- Added Android API 36 build properties.
+- Removed direct local `eas-cli` and `@expo/metro-config` dependencies.
+- Fixed SDK 54 TypeScript issues in BackHandler cleanup and FileSystem legacy API usage.
+- Removed placeholder `ANDROID_NDK_HOME` from EAS preview build config.
 
 ## In Progress
 
-- Repository recovery phase.
-- Git initialization/reconnection remains unresolved.
+- Production EAS AAB build has not been run yet because it requires Expo/EAS account access and signing credentials.
+- UI and ad placement audit is intentionally deferred until after stable native build validation.
 
 ## Next Exact Steps
 
-1. Ask owner whether to initialize a new Git repository in `D:\github\Surat-CV-Maker` or reconnect to an existing remote.
-2. If approved, initialize Git or connect remote, then make a safe baseline commit containing the current recovered app state and documentation.
-3. Run a targeted audit of `package.json`, `app.json`, `eas.json`, Expo plugins, native dependencies, and ads SDK compatibility.
-4. Run TypeScript validation with `npx tsc --noEmit` after Git baseline is protected.
-5. Plan Expo SDK upgrade path only after baseline commit and audit are complete.
+1. Configure or confirm a Git remote for off-machine backup.
+2. Run `eas build --platform android --profile production` after owner logs in to Expo/EAS.
+3. Download the generated AAB and inspect native libraries for 16 KB page-size compliance in Android Studio/APK Analyzer.
+4. Manually smoke test document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
+5. After stable build validation, audit UI/ad placement UX.
 
 ## Files Already Read
 
@@ -66,15 +82,25 @@ Initial recovery documentation and repository continuity setup for the existing 
 - `src/utils/adMobService.tsx`
 - `src/utils/exportUtils.ts`
 - `src/constants/templates.ts`
+- `node_modules/expo-build-properties/build/PluginConfig.d.ts`
 
 ## Files Modified
 
 - `SYSTEM_MAP.md`
 - `DEV_PROGRESS.md`
+- `package.json`
+- `package-lock.json`
+- `app.json`
+- `eas.json`
+- `tsconfig.json`
+- `src/screens/CVForm/index.tsx`
+- `src/screens/JobApplicationForm/index.tsx`
+- `src/screens/Preview/index.tsx`
+- `src/screens/ResignationForm/index.tsx`
+- `src/utils/exportUtils.ts`
 
 ## Important Functions / Flows Touched
 
-- Documentation only; no runtime functions changed.
 - Mapped entry flow:
   - `registerRootComponent(App)`
   - `App`
@@ -91,35 +117,49 @@ Initial recovery documentation and repository continuity setup for the existing 
   - `exportToDocx`
   - `AdBanner`
   - `interstitialAdManager.showAd`
+- Updated Android hardware back cleanup in:
+  - `CVForm`
+  - `JobApplicationForm`
+  - `PreviewScreen`
+  - `ResignationForm`
+- Updated export utilities to use `expo-file-system/legacy`.
 
 ## Decisions Made
 
 - Preserve app/package identity.
 - Treat missing Git repository as a recovery blocker before risky upgrades.
 - Document first, then audit and upgrade incrementally.
-- No behavior, dependency, package ID, ad ID, or build setting changes during this pass.
+- Preserve AdMob app and unit IDs.
+- Keep nested recovered source folder, but exclude it from root TypeScript validation.
+- Keep legacy Android storage permissions for now to avoid behavior regression; review before Play upload.
+- Do not run EAS production build or submit without owner login/credential confirmation.
 
 ## Errors / Blockers
 
-- `git status --short --branch` failed with: `fatal: not a git repository (or any of the parent directories): .git`
-- No `.git` directory found in nested `Surat-CV-Maker` folder.
-- Need owner direction before initializing Git or attaching a remote.
+- Initial `git init` and `git add` required elevated filesystem access for `.git` metadata writes.
+- Initial SDK 54 install stopped on stale React 18 typings conflict; fixed by aligning `@types/react`.
+- Expo config initially failed because older Google Mobile Ads plugin required direct `@expo/config-plugins`; upgrading the ads package resolved this and the temporary dependency was removed.
+- EAS build not run locally; requires owner Expo/EAS access and credentials.
 
 ## Validation Status
 
-- Documentation creation validated by reading back `SYSTEM_MAP.md` and `DEV_PROGRESS.md`.
-- Runtime validation not run.
-- TypeScript validation not run.
-- EAS build validation not run.
+- `npx expo install --check`: passing.
+- `npx expo-doctor`: 17/17 checks passing.
+- `npx tsc --noEmit`: passing.
+- `npx expo config --json --full`: passing.
+- `npx expo export --platform android`: passing; generated `dist`.
+- EAS Android production AAB build not run.
+- 16 KB page-size binary inspection not run.
 
 ## Do Not Repeat
 
 - Do not rescan the entire repository before reading `SYSTEM_MAP.md` and this file.
 - Do not change `com.arielfikrua.SuratCVMaker` without explicit owner approval.
 - Do not change AdMob IDs without explicit owner approval.
-- Do not perform Expo upgrade before Git baseline is protected.
 - Do not delete the nested `Surat-CV-Maker` folder without owner approval.
+- Do not publish or submit to Google Play automatically.
+- Do not generate fake signing credentials.
 
 ## Resume Note for Next Agent
 
-Start by reading `SYSTEM_MAP.md`, then this file. The current safest next move is repository recovery: clarify whether to initialize Git locally or reconnect to an existing remote, then create a safe baseline before dependency or Android modernization work.
+Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally, but no native EAS build has been produced yet. The next safest move is to commit the migration, connect a Git remote, then have the owner run/log in for EAS production AAB generation and 16 KB page-size verification.

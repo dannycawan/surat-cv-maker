@@ -1,5 +1,12 @@
-// src/utils/exportUtils.ts
-import * as FileSystem from 'expo-file-system';
+/*
+Purpose: Converts generated document data into HTML, PDF, or shareable document files.
+Caller: Preview screen export actions and any future document export flows.
+Dependencies: expo-print, expo-file-system legacy API, expo-sharing, HTML template generators.
+Main Functions: generateHTML, exportToPdf, exportToDocx.
+Side Effects: Writes temporary files to app document storage and opens the native share sheet.
+*/
+
+import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
 import { Alert } from 'react-native';
 import { printToFileAsync } from 'expo-print';

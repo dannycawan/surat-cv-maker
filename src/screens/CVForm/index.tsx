@@ -1,3 +1,11 @@
+/*
+Purpose: CV creation/edit form screen with draft loading, validation, template selection, and preview navigation.
+Caller: Root stack route CVForm from src/navigation/index.tsx.
+Dependencies: React Navigation, React Native Paper, AsyncStorage draft service, validation helpers, template metadata, AdMob service.
+Main Functions: CVForm component, form field handlers, draft save/load flow, hardware back confirmation.
+Side Effects: Reads/writes local drafts, shows alerts/ads, intercepts Android hardware back while unsaved changes exist.
+*/
+
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
@@ -144,9 +152,9 @@ const CVForm = () => {
       return false; // Allow default back action
     };
 
-    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    const backSubscription = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
     return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+      backSubscription.remove();
     };
   }, [hasUnsavedChanges]);
   
