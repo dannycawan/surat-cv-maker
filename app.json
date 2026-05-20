@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "Surat-CV-Maker",
+    "slug": "Surat-CV-Maker",
+    "version": "1.1.1",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryAddUsageDescription": "This app needs access to save documents to your photo library.",
+        "NSDocumentPickerUsageDescription": "This app needs access to save documents to your files."
+      },
+      "bundleIdentifier": "com.arielfikrua.SuratCVMaker"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_EXTERNAL_STORAGE"
+      ],
+      "package": "com.arielfikrua.SuratCVMaker"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1517bf4f-b8f6-4eb8-b4af-a9b5f2a62b1f"
+      }
+    },
+    "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-6721734106426198~4233683077",
+          "iosAppId": "ca-app-pub-6721734106426198~4233683077"
+        }
+      ]
+    ]
+  }
+}
