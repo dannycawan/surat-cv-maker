@@ -31,8 +31,11 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - EAS production build targets Android app bundle.
 - Google Mobile Ads is configured in `app.json` and `src/utils/adMobService.tsx`.
 - Local Git repository initialized.
+- GitHub remote configured: `https://github.com/dannycawan/surat-cv-maker.git`
+- Local branch renamed from `master` to `main`.
+- Local `main` pushed and set to track `origin/main`.
 - Baseline commit created: `bed0e59` (`chore: baseline recovered app state`).
-- Migration commit created: `chore: migrate to expo sdk 54` on current `master` HEAD.
+- Migration commit created: `chore: migrate to expo sdk 54` on current `main` history.
 - Nested `Surat-CV-Maker` folder exists and is preserved, but root `tsconfig.json` excludes it from validation.
 
 ## Work Completed
@@ -46,6 +49,7 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Created `DEV_PROGRESS.md`.
 - Initialized local Git repository.
 - Created safe baseline commit before migration.
+- Connected repository to GitHub and pushed `main`.
 - Audited package/config state with `npm outdated`, `npx expo install --check`, `npx expo-doctor`, `npm ls`, and Expo config resolution.
 - Upgraded Expo SDK from 52 to 54.
 - Upgraded React Native to `0.81.5` and React to `19.1.0`.
@@ -63,11 +67,11 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 
 ## Next Exact Steps
 
-1. Configure or confirm a Git remote for off-machine backup.
-2. Run `eas build --platform android --profile production` after owner logs in to Expo/EAS.
-3. Download the generated AAB and inspect native libraries for 16 KB page-size compliance in Android Studio/APK Analyzer.
-4. Manually smoke test document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
-5. After stable build validation, audit UI/ad placement UX.
+1. Run `eas build --platform android --profile production` after owner logs in to Expo/EAS.
+2. Download the generated AAB and inspect native libraries for 16 KB page-size compliance in Android Studio/APK Analyzer.
+3. Manually smoke test document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
+4. After stable build validation, audit UI/ad placement UX.
+5. Optionally configure GitHub branch protection and release workflow.
 
 ## Files Already Read
 
@@ -139,6 +143,7 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Initial `git init` and `git add` required elevated filesystem access for `.git` metadata writes.
 - Initial SDK 54 install stopped on stale React 18 typings conflict; fixed by aligning `@types/react`.
 - Expo config initially failed because older Google Mobile Ads plugin required direct `@expo/config-plugins`; upgrading the ads package resolved this and the temporary dependency was removed.
+- Initial `git remote add` needed elevated filesystem access for `.git/config`.
 - EAS build not run locally; requires owner Expo/EAS access and credentials.
 
 ## Validation Status
@@ -162,4 +167,4 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 
 ## Resume Note for Next Agent
 
-Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally, but no native EAS build has been produced yet. The next safest move is to commit the migration, connect a Git remote, then have the owner run/log in for EAS production AAB generation and 16 KB page-size verification.
+Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally and is pushed to GitHub `main`, but no native EAS build has been produced yet. The next safest move is owner Expo/EAS login, production AAB generation, and 16 KB page-size verification.

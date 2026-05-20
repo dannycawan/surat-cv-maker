@@ -39,9 +39,11 @@ Do not change package/application identity without explicit owner approval.
 - Current app root: `D:\github\Surat-CV-Maker`
 - Root currently contains app source, config, `node_modules`, and `package-lock.json`.
 - Local Git repository initialized in the app root.
+- GitHub remote: `https://github.com/dannycawan/surat-cv-maker.git`
+- Primary branch: `main`
 - Baseline commit: `bed0e59` (`chore: baseline recovered app state`).
 - Nested `Surat-CV-Maker` folder is preserved as recovered source evidence but excluded from root TypeScript validation.
-- No Git remote has been configured yet.
+- Local `main` tracks `origin/main`.
 
 ## Entry Flow
 
@@ -169,7 +171,7 @@ Service/Data:
 
 ## Known Risks / Recovery Gaps
 
-- No Git remote is currently configured.
+- GitHub remote is configured, but branch protection/release workflow has not been configured yet.
 - `SYSTEM_MAP.md` and `DEV_PROGRESS.md` were missing before recovery.
 - Some large screen files exceed 500 lines; inspect relevant functions only when modifying.
 - Ads are production-configured; preserve monetization IDs unless owner explicitly requests changes.
