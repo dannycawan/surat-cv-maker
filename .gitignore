@@ -11,6 +11,8 @@ expo-env.d.ts
 
 # Native
 *.orig.*
+credentials.json
+credentials/
 *.jks
 *.p8
 *.p12

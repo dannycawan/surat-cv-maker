@@ -67,6 +67,9 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Production AAB build `0c4d94c2-6d16-4102-bab0-3011419e98e6` finished with artifact `https://expo.dev/artifacts/eas/2w7GCuxZ1WvbRb6vbX7ngL.aab`.
 - Started EAS Android preview APK build `58ecfa59-4399-4e17-b385-202035e34eb7`.
 - Preview APK build `58ecfa59-4399-4e17-b385-202035e34eb7` finished with artifact `https://expo.dev/artifacts/eas/bYTQ2Kg4LUpbK2X2h1eMNP.apk`.
+- Downloaded Android EAS credentials locally to `credentials.json` and `credentials/android/keystore.jks` for upload-key reset preparation.
+- Exported local upload certificate to `upload_certificate.pem` for Google Play upload-key reset.
+- Added local credentials outputs to `.gitignore`.
 
 ## In Progress
 
@@ -112,6 +115,8 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - `src/screens/Preview/index.tsx`
 - `src/screens/ResignationForm/index.tsx`
 - `src/utils/exportUtils.ts`
+- `.gitignore`
+- `DEV_PROGRESS.md`
 
 ## Important Functions / Flows Touched
 
@@ -173,6 +178,7 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - EAS Android production AAB build finished.
 - EAS Android preview APK build finished.
 - 16 KB page-size binary inspection not run.
+- Android upload certificate exported locally as `upload_certificate.pem`.
 
 ## Do Not Repeat
 
