@@ -85,6 +85,8 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Downloaded and inspected new production AAB locally; native libraries are only `arm64-v8a` and `x86_64`, all 42 checked libraries have ELF `PT_LOAD` alignment `0x4000`, and 16 KB incompatible library count is `0`.
 - Started and completed EAS Android preview APK build `34a82a03-2f4b-4703-b0f8-674a7e08f506`.
 - New 64-bit preview APK artifact: `https://expo.dev/artifacts/eas/7v8JftCQEjbfGWGFRbHZTd.apk`.
+- Google Play production upload rejected versionCode `4` because current Play production release already has versionCode `5`.
+- Switched EAS app version source from remote to local and set `android.versionCode` to `6`.
 
 ## In Progress
 
@@ -99,10 +101,12 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 4. Inspect the production AAB native libraries for 16 KB page-size compatibility in Android Studio/APK Analyzer.
 5. Download and manually smoke test preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156` from `https://expo.dev/artifacts/eas/hCbviJC96CoqcvjN7dGb8q.apk`.
 6. Manually smoke test APK install, document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
-7. Download and smoke test new 64-bit preview APK build `34a82a03-2f4b-4703-b0f8-674a7e08f506` from `https://expo.dev/artifacts/eas/7v8JftCQEjbfGWGFRbHZTd.apk`.
-8. Upload reinspected 64-bit production AAB build `602e655c-19ef-4532-a54c-7513c222a907` from `https://expo.dev/artifacts/eas/cSRMCCXSNhxngwLB3eRZXn.aab` to Google Play internal testing.
-9. Continue UI/ad placement UX audit on a real Android device.
-10. Optionally configure GitHub branch protection and release workflow.
+7. Build new production AAB and preview APK with local Android versionCode `6`.
+8. Reinspect the new production AAB for 16 KB page-size compatibility.
+9. Download and smoke test the new versionCode `6` preview APK.
+10. Upload the new versionCode `6` production AAB to Google Play production or internal testing.
+11. Continue UI/ad placement UX audit on a real Android device.
+12. Optionally configure GitHub branch protection and release workflow.
 
 ## Files Already Read
 
