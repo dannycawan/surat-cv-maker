@@ -13,7 +13,7 @@ Side Effects: Documentation only; no runtime side effects.
 - App name: `Surat-CV-Maker`
 - Expo slug: `Surat-CV-Maker`
 - App version in Expo config: `1.1.1`
-- Android versionCode in Expo config: `6`
+- Android versionCode in Expo config: `7`
 - Android package: `com.arielfikrua.SuratCVMaker`
 - iOS bundle identifier: `com.arielfikrua.SuratCVMaker`
 - Expo owner: `dannycawan`
@@ -37,7 +37,7 @@ Do not change package/application identity without explicit owner approval.
 - Android release minification and resource shrinking: enabled through `expo-build-properties`.
 - EAS production Android build: app bundle via `:app:bundleRelease`
 - EAS preview Android build: APK via `:app:assembleRelease`
-- EAS app version source: local, because Google Play production already has versionCode `5` and new builds must be `6` or higher.
+- EAS app version source: local, because Google Play production already has versionCode `5` and new builds must stay higher.
 
 ## Repository Recovery State
 
