@@ -75,6 +75,8 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Committed and pushed inline form banner placement as `b0121f0` (`feat: add inline form banner ads`).
 - Started and completed EAS Android production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69`.
 - New production AAB artifact: `https://expo.dev/artifacts/eas/k6guq33Aarj8EjaaAZrKdM.aab`.
+- Started and completed EAS Android preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156`.
+- New preview APK artifact: `https://expo.dev/artifacts/eas/hCbviJC96CoqcvjN7dGb8q.apk`.
 
 ## In Progress
 
@@ -87,10 +89,11 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 2. Upload production AAB build `0c4d94c2-6d16-4102-bab0-3011419e98e6` from `https://expo.dev/artifacts/eas/2w7GCuxZ1WvbRb6vbX7ngL.aab` to a Google Play internal testing draft to see whether the current upload certificate is accepted.
 3. If Google Play rejects the AAB because the upload certificate does not match, export the EAS upload certificate and request upload-key reset in Google Play Console.
 4. Inspect the production AAB native libraries for 16 KB page-size compatibility in Android Studio/APK Analyzer.
-5. Manually smoke test APK install, document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
-6. Upload new production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` from `https://expo.dev/artifacts/eas/k6guq33Aarj8EjaaAZrKdM.aab` to Google Play internal testing.
-7. Continue UI/ad placement UX audit on a real Android device.
-8. Optionally configure GitHub branch protection and release workflow.
+5. Download and manually smoke test preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156` from `https://expo.dev/artifacts/eas/hCbviJC96CoqcvjN7dGb8q.apk`.
+6. Manually smoke test APK install, document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
+7. Upload new production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` from `https://expo.dev/artifacts/eas/k6guq33Aarj8EjaaAZrKdM.aab` to Google Play internal testing.
+8. Continue UI/ad placement UX audit on a real Android device.
+9. Optionally configure GitHub branch protection and release workflow.
 
 ## Files Already Read
 
@@ -192,6 +195,7 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Android upload certificate exported locally as `upload_certificate.pem`.
 - `npx tsc --noEmit` passed after adding inline form banner placement.
 - EAS Android production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` finished with app build version `3` and artifact `https://expo.dev/artifacts/eas/k6guq33Aarj8EjaaAZrKdM.aab`.
+- EAS Android preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156` finished with app build version `3` and artifact `https://expo.dev/artifacts/eas/hCbviJC96CoqcvjN7dGb8q.apk`.
 
 ## Do Not Repeat
 
@@ -204,4 +208,4 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 
 ## Resume Note for Next Agent
 
-Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally and is pushed to GitHub `main`. New inline form banner placement was pushed in commit `b0121f0`, and EAS Android production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` finished successfully with artifact `https://expo.dev/artifacts/eas/k6guq33Aarj8EjaaAZrKdM.aab`. Next focus is uploading that AAB to Google Play internal testing, real-device smoke testing, and 16 KB page-size verification.
+Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally and is pushed to GitHub `main`. New inline form banner placement was pushed in commit `b0121f0`. EAS Android production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` finished with artifact `https://expo.dev/artifacts/eas/k6guq33Aarj8EjaaAZrKdM.aab`, and preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156` finished with artifact `https://expo.dev/artifacts/eas/hCbviJC96CoqcvjN7dGb8q.apk`. Next focus is APK real-device smoke testing, uploading the AAB to Google Play internal testing, and 16 KB page-size verification.
