@@ -79,6 +79,12 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - New preview APK artifact: `https://expo.dev/artifacts/eas/hCbviJC96CoqcvjN7dGb8q.apk`.
 - Inspected production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69`; found 30 native 32-bit libraries with 4 KB ELF `PT_LOAD` alignment.
 - Updated Android build properties to package only 64-bit ABIs (`arm64-v8a`, `x86_64`) and enabled release minification/resource shrinking.
+- Committed and pushed Android 64-bit ABI/minify configuration as `d905f51` (`fix: restrict android builds to 64-bit abis`).
+- Started and completed EAS Android production AAB build `602e655c-19ef-4532-a54c-7513c222a907`.
+- New 64-bit production AAB artifact: `https://expo.dev/artifacts/eas/cSRMCCXSNhxngwLB3eRZXn.aab`.
+- Downloaded and inspected new production AAB locally; native libraries are only `arm64-v8a` and `x86_64`, all 42 checked libraries have ELF `PT_LOAD` alignment `0x4000`, and 16 KB incompatible library count is `0`.
+- Started and completed EAS Android preview APK build `34a82a03-2f4b-4703-b0f8-674a7e08f506`.
+- New 64-bit preview APK artifact: `https://expo.dev/artifacts/eas/7v8JftCQEjbfGWGFRbHZTd.apk`.
 
 ## In Progress
 
@@ -93,11 +99,10 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 4. Inspect the production AAB native libraries for 16 KB page-size compatibility in Android Studio/APK Analyzer.
 5. Download and manually smoke test preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156` from `https://expo.dev/artifacts/eas/hCbviJC96CoqcvjN7dGb8q.apk`.
 6. Manually smoke test APK install, document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
-7. Build new production AAB and preview APK after the 64-bit ABI/minify configuration change.
-8. Reinspect the new production AAB native libraries for 16 KB page-size compatibility before Play upload.
-9. Upload the reinspected production AAB to Google Play internal testing.
-10. Continue UI/ad placement UX audit on a real Android device.
-11. Optionally configure GitHub branch protection and release workflow.
+7. Download and smoke test new 64-bit preview APK build `34a82a03-2f4b-4703-b0f8-674a7e08f506` from `https://expo.dev/artifacts/eas/7v8JftCQEjbfGWGFRbHZTd.apk`.
+8. Upload reinspected 64-bit production AAB build `602e655c-19ef-4532-a54c-7513c222a907` from `https://expo.dev/artifacts/eas/cSRMCCXSNhxngwLB3eRZXn.aab` to Google Play internal testing.
+9. Continue UI/ad placement UX audit on a real Android device.
+10. Optionally configure GitHub branch protection and release workflow.
 
 ## Files Already Read
 
@@ -201,6 +206,9 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - EAS Android production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` finished with app build version `3` and artifact `https://expo.dev/artifacts/eas/k6guq33Aarj8EjaaAZrKdM.aab`.
 - EAS Android preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156` finished with app build version `3` and artifact `https://expo.dev/artifacts/eas/hCbviJC96CoqcvjN7dGb8q.apk`.
 - Production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` local ELF scan found 30 incompatible 32-bit libraries (`armeabi-v7a` and `x86`) with minimum load alignment `0x1000`.
+- EAS Android production AAB build `602e655c-19ef-4532-a54c-7513c222a907` finished with app build version `4` and artifact `https://expo.dev/artifacts/eas/cSRMCCXSNhxngwLB3eRZXn.aab`.
+- Local ELF scan of downloaded AAB build `602e655c-19ef-4532-a54c-7513c222a907`: 42 native libraries checked, 16 KB incompatible libraries `0`, ABIs present `arm64-v8a` and `x86_64`, all minimum load alignments `0x4000`.
+- EAS Android preview APK build `34a82a03-2f4b-4703-b0f8-674a7e08f506` finished with app build version `4` and artifact `https://expo.dev/artifacts/eas/7v8JftCQEjbfGWGFRbHZTd.apk`.
 
 ## Do Not Repeat
 
@@ -213,4 +221,4 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 
 ## Resume Note for Next Agent
 
-Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally and is pushed to GitHub `main`. New inline form banner placement was pushed in commit `b0121f0`. EAS Android production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` and preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156` finished, but local ELF inspection found 32-bit native libraries with 4 KB alignment. Android build properties now restrict native ABIs to 64-bit only and enable release minification/resource shrinking. Next focus is rebuilding AAB/APK, reinspecting 16 KB page-size compatibility, then uploading the new AAB to Google Play internal testing.
+Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally and is pushed to GitHub `main`. New inline form banner placement was pushed in commit `b0121f0`. Android build properties now restrict native ABIs to 64-bit only and enable release minification/resource shrinking in commit `d905f51`. EAS Android production AAB build `602e655c-19ef-4532-a54c-7513c222a907` finished with artifact `https://expo.dev/artifacts/eas/cSRMCCXSNhxngwLB3eRZXn.aab`; local ELF inspection found 0 incompatible native libraries for 16 KB page-size. Preview APK build `34a82a03-2f4b-4703-b0f8-674a7e08f506` finished with artifact `https://expo.dev/artifacts/eas/7v8JftCQEjbfGWGFRbHZTd.apk`. Next focus is APK real-device smoke testing and uploading the new AAB to Google Play internal testing.
