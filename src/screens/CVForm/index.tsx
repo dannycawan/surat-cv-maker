@@ -34,7 +34,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { RootStackParamList } from '../../navigation';
 import { getDraft, saveDraft } from '../../utils/storageService';
 import { CV_TEMPLATES } from '../../constants/templates';
-import { interstitialAdManager } from '../../utils/adMobService';
+import { AdBanner, interstitialAdManager } from '../../utils/adMobService';
 import theme from '../../theme';
 
 // Interface for work experience
@@ -877,8 +877,14 @@ const CVForm = () => {
       
       {renderStepIndicator()}
       
-      <KeyboardAwareScrollView style={styles.scrollContainer}>
+      <KeyboardAwareScrollView
+        style={styles.scrollContainer}
+        contentContainerStyle={styles.scrollContent}
+      >
         {renderFormStep()}
+        <View style={styles.inlineAdContainer}>
+          <AdBanner />
+        </View>
       </KeyboardAwareScrollView>
       
       <View style={styles.footer}>
@@ -1014,6 +1020,14 @@ const styles = StyleSheet.create({
   // Form styles
   scrollContainer: {
     flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 16,
+  },
+  inlineAdContainer: {
+    marginHorizontal: 16,
+    marginTop: 4,
+    marginBottom: 16,
   },
   formContainer: {
     padding: 16,

@@ -70,11 +70,13 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - Downloaded Android EAS credentials locally to `credentials.json` and `credentials/android/keystore.jks` for upload-key reset preparation.
 - Exported local upload certificate to `upload_certificate.pem` for Google Play upload-key reset.
 - Added local credentials outputs to `.gitignore`.
+- Audited current AdMob placement across all screens.
+- Added inline banner ads inside Job Application, CV, and Resignation form scroll content while preserving fixed footer button access.
 
 ## In Progress
 
 - Production EAS AAB build finished successfully; preview APK build also finished successfully.
-- UI and ad placement audit is intentionally deferred until after stable native build validation.
+- UI and ad placement audit has started; form screens now include inline banners that do not overlay footer actions.
 
 ## Next Exact Steps
 
@@ -83,8 +85,9 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 3. If Google Play rejects the AAB because the upload certificate does not match, export the EAS upload certificate and request upload-key reset in Google Play Console.
 4. Inspect the production AAB native libraries for 16 KB page-size compatibility in Android Studio/APK Analyzer.
 5. Manually smoke test APK install, document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
-6. After stable build validation, audit UI/ad placement UX.
-7. Optionally configure GitHub branch protection and release workflow.
+6. Build a new production AAB before Play release if the new form-screen ad placement should be included.
+7. Continue UI/ad placement UX audit on a real Android device.
+8. Optionally configure GitHub branch protection and release workflow.
 
 ## Files Already Read
 
@@ -117,6 +120,10 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - `src/utils/exportUtils.ts`
 - `.gitignore`
 - `DEV_PROGRESS.md`
+- `src/screens/JobApplicationForm/index.tsx`
+- `src/screens/CVForm/index.tsx`
+- `src/screens/ResignationForm/index.tsx`
+- `SYSTEM_MAP.md`
 
 ## Important Functions / Flows Touched
 
@@ -135,7 +142,8 @@ The app root is now protected by a Git baseline commit and has been migrated fro
   - `exportToPdf`
   - `exportToDocx`
   - `AdBanner`
-  - `interstitialAdManager.showAd`
+- `interstitialAdManager.showAd`
+- Inline `AdBanner` placement inside form scroll views.
 - Updated Android hardware back cleanup in:
   - `CVForm`
   - `JobApplicationForm`
@@ -179,6 +187,7 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - EAS Android preview APK build finished.
 - 16 KB page-size binary inspection not run.
 - Android upload certificate exported locally as `upload_certificate.pem`.
+- `npx tsc --noEmit` passed after adding inline form banner placement.
 
 ## Do Not Repeat
 

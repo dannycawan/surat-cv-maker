@@ -150,6 +150,8 @@ Service/Data:
   - Uses test ad IDs in `__DEV__`.
   - Uses production banner and interstitial unit IDs otherwise.
   - Applies interstitial rate limiting of 3 minutes.
+  - Banner placement currently appears in Home and document-list tabs, plus inline inside document form scroll content.
+  - Interstitial placement currently appears after successful draft save and successful PDF/DOCX export.
 
 - `src/constants/templates.ts`
   - Defines template metadata and preview asset requires for job application, CV, and resignation documents.
@@ -178,6 +180,7 @@ Service/Data:
 - Ads are production-configured; preserve monetization IDs unless owner explicitly requests changes.
 - Android API 36 configuration validates locally, but a real EAS Android AAB must still be built and inspected for 16 KB page-size compliance.
 - Previous inaccessible EAS project ID was `1517bf4f-b8f6-4eb8-b4af-a9b5f2a62b1f`; the app is now re-linked under the `dannycawan` Expo account.
+- Form-screen banner ads must remain inline inside scroll content, not fixed near the footer, so they do not block Previous/Next/Save actions.
 
 ## Maintenance Rules For Future Sessions
 
