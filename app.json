@@ -53,7 +53,13 @@
             "compileSdkVersion": 36,
             "targetSdkVersion": 36,
             "buildToolsVersion": "36.0.0",
-            "useLegacyPackaging": false
+            "useLegacyPackaging": false,
+            "buildArchs": [
+              "arm64-v8a",
+              "x86_64"
+            ],
+            "enableMinifyInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true
           }
         }
       ],

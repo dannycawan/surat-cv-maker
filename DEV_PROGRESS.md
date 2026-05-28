@@ -77,6 +77,8 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - New production AAB artifact: `https://expo.dev/artifacts/eas/k6guq33Aarj8EjaaAZrKdM.aab`.
 - Started and completed EAS Android preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156`.
 - New preview APK artifact: `https://expo.dev/artifacts/eas/hCbviJC96CoqcvjN7dGb8q.apk`.
+- Inspected production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69`; found 30 native 32-bit libraries with 4 KB ELF `PT_LOAD` alignment.
+- Updated Android build properties to package only 64-bit ABIs (`arm64-v8a`, `x86_64`) and enabled release minification/resource shrinking.
 
 ## In Progress
 
@@ -91,9 +93,11 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 4. Inspect the production AAB native libraries for 16 KB page-size compatibility in Android Studio/APK Analyzer.
 5. Download and manually smoke test preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156` from `https://expo.dev/artifacts/eas/hCbviJC96CoqcvjN7dGb8q.apk`.
 6. Manually smoke test APK install, document creation, draft save/load/delete, PDF export/share, DOCX share, preview rendering, and ad behavior on Android.
-7. Upload new production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` from `https://expo.dev/artifacts/eas/k6guq33Aarj8EjaaAZrKdM.aab` to Google Play internal testing.
-8. Continue UI/ad placement UX audit on a real Android device.
-9. Optionally configure GitHub branch protection and release workflow.
+7. Build new production AAB and preview APK after the 64-bit ABI/minify configuration change.
+8. Reinspect the new production AAB native libraries for 16 KB page-size compatibility before Play upload.
+9. Upload the reinspected production AAB to Google Play internal testing.
+10. Continue UI/ad placement UX audit on a real Android device.
+11. Optionally configure GitHub branch protection and release workflow.
 
 ## Files Already Read
 
@@ -196,6 +200,7 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 - `npx tsc --noEmit` passed after adding inline form banner placement.
 - EAS Android production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` finished with app build version `3` and artifact `https://expo.dev/artifacts/eas/k6guq33Aarj8EjaaAZrKdM.aab`.
 - EAS Android preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156` finished with app build version `3` and artifact `https://expo.dev/artifacts/eas/hCbviJC96CoqcvjN7dGb8q.apk`.
+- Production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` local ELF scan found 30 incompatible 32-bit libraries (`armeabi-v7a` and `x86`) with minimum load alignment `0x1000`.
 
 ## Do Not Repeat
 
@@ -208,4 +213,4 @@ The app root is now protected by a Git baseline commit and has been migrated fro
 
 ## Resume Note for Next Agent
 
-Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally and is pushed to GitHub `main`. New inline form banner placement was pushed in commit `b0121f0`. EAS Android production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` finished with artifact `https://expo.dev/artifacts/eas/k6guq33Aarj8EjaaAZrKdM.aab`, and preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156` finished with artifact `https://expo.dev/artifacts/eas/hCbviJC96CoqcvjN7dGb8q.apk`. Next focus is APK real-device smoke testing, uploading the AAB to Google Play internal testing, and 16 KB page-size verification.
+Start by reading `SYSTEM_MAP.md`, then this file. The SDK 54 migration validates locally and is pushed to GitHub `main`. New inline form banner placement was pushed in commit `b0121f0`. EAS Android production AAB build `9a99e63d-e5bb-4b67-8ae8-9d933ba80e69` and preview APK build `869f77e7-fe73-4ea7-baaf-25d1a70e8156` finished, but local ELF inspection found 32-bit native libraries with 4 KB alignment. Android build properties now restrict native ABIs to 64-bit only and enable release minification/resource shrinking. Next focus is rebuilding AAB/APK, reinspecting 16 KB page-size compatibility, then uploading the new AAB to Google Play internal testing.

@@ -32,6 +32,8 @@ Do not change package/application identity without explicit owner approval.
 - Android compile SDK: `36` through `expo-build-properties`
 - Android target SDK: `36` through `expo-build-properties`
 - Native library legacy packaging: disabled through `expo-build-properties` for better 16 KB page-size alignment compatibility
+- Android native ABIs: 64-bit only (`arm64-v8a`, `x86_64`) to avoid packaging 32-bit libraries with 4 KB ELF alignment.
+- Android release minification and resource shrinking: enabled through `expo-build-properties`.
 - EAS production Android build: app bundle via `:app:bundleRelease`
 - EAS preview Android build: APK via `:app:assembleRelease`
 
@@ -167,7 +169,7 @@ Service/Data:
 ## Build And Compatibility Notes
 
 - `app.json` still declares `WRITE_EXTERNAL_STORAGE` and `READ_EXTERNAL_STORAGE`; these legacy Android permissions remain for behavior preservation and should be manually reviewed before production upload.
-- `expo-build-properties` configures Android compile/target SDK 36, build tools `36.0.0`, and `useLegacyPackaging: false`.
+- `expo-build-properties` configures Android compile/target SDK 36, build tools `36.0.0`, `useLegacyPackaging: false`, 64-bit native ABIs only, and release minification/resource shrinking.
 - Expo SDK 54 / React Native 0.81 targets Android 16 / API 36.
 - Production AAB build depends on EAS credentials and remote app version source.
 - Do not publish or submit automatically.
@@ -178,7 +180,7 @@ Service/Data:
 - `SYSTEM_MAP.md` and `DEV_PROGRESS.md` were missing before recovery.
 - Some large screen files exceed 500 lines; inspect relevant functions only when modifying.
 - Ads are production-configured; preserve monetization IDs unless owner explicitly requests changes.
-- Android API 36 configuration validates locally, but a real EAS Android AAB must still be built and inspected for 16 KB page-size compliance.
+- Previous Android AAB inspection found 32-bit native libraries with 4 KB ELF alignment; build configuration now excludes 32-bit ABIs and must be rebuilt/reinspected for 16 KB page-size compliance.
 - Previous inaccessible EAS project ID was `1517bf4f-b8f6-4eb8-b4af-a9b5f2a62b1f`; the app is now re-linked under the `dannycawan` Expo account.
 - Form-screen banner ads must remain inline inside scroll content, not fixed near the footer, so they do not block Previous/Next/Save actions.
 
